@@ -6,31 +6,93 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Converter</title>
     <style>
+		body {
+			padding: 50px;
+		}
+	  .app {
+		padding: 0 50px;
+		margin-bottom: 100px;
+		display: flex;
+		justify-content: center;
+		column-gap: 40px;
+	  }
+
+	  .app > div {
+		padding: 20px;
+		border: 1px solid #000;
+	  }
+
+	  .sum {
+		margin-top: 20px;
+		font-weight: 600;
+		font-size: 30px;
+	  }
+
+	  p {
+		font-size: 25px;
+		font-weight: 700;
+	  }
+
       label {
         display: block;
         font-size: 30px;
       }
       input {
-        width: 300px;
-        height: 50px;
+        width: 100%;
+        height: 40px;
         font-size: 30px;
       }
+
+	  select {
+		font-size: 25px;
+	  }
+	  @media (max-width: 720px) {
+		body {
+			padding: 0px;
+		}
+		.app {
+		padding: 0 20px;
+		flex-direction: column;
+		row-gap: 10px;
+		}
+	  }
+	  
     </style>
   </head>
   <body>
-	<h1>Converter</h1>
+	<h1>Laboratory Work #2</h1>
 	<h2>Sultanbi Zholdybai IT1-2008</h2>
 	<h3>Browser can block if open without server (CORS policy). So please open with server! (like Live Server)</h3>
 	<h4>If u haven't any server <a href="https://proger30.github.io/converter/" target="_blank">click here</a>!</h4>
-
-    <label for="Dec">Decimal</label>
-    <input id="Dec" type="text" />
-    <label for="Bin">Binary</label>
-    <input id="Bin" type="text" />
-    <label for="Oct">Octal</label>
-    <input id="Oct" type="text" />
-    <label for="Hex">Hexidecimal</label>
-    <input id="Hex" type="text" />
+	<div class="app">
+		<div class="converter">
+			<p>Converter</p>
+			<label for="Dec">Decimal</label>
+			<input id="Dec" type="text" />
+			<label for="Bin">Binary</label>
+			<input id="Bin" type="text" />
+			<label for="Oct">Octal</label>
+			<input id="Oct" type="text" />
+			<label for="Hex">Hexidecimal</label>
+			<input id="Hex" type="text" />
+		</div>
+		<div class="calculater">
+			<p>Calculater</p>
+			<h4>( Only addition :( )</h4>
+			<select name="notation" id="notation">
+				<option value="Bin" selected>Binary</option>
+				<option value="Oct">Octal</option>
+				<option value="Dec">Decimal</option>
+				<option value="Hex">Hexidecimal</option>
+			</select>
+			<label for="firstTerm">Term 1</label>
+			<input id="firstTerm" type="text" value=""/>
+			<label for="secondTerm">Term 2</label>
+			<input id="secondTerm" type="text" value=""	/>
+			<div class="sum">Result: </div>
+		</div>
+	</div>
+	
     <script type="module" src="./script/main.js"></script>
   </body>
 </html>
