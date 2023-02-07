@@ -1,7 +1,7 @@
 import Decimal from "./modules/converter/decimal/Decimal.js";
 import Binary from './modules/converter/binary/Binary.js';
 import Octal from './modules/converter/octal/Octal.js';
-import Hex from './modules/converter/hex/Hex.js'
+import Hex from './modules/converter/hex/Hex.js';
 
 import Addition from "./modules/calculator/addition/Addition.js";
 
@@ -18,28 +18,16 @@ const selectedNotation = document.querySelector('#notation'),
 // ===========================================================================
 
 inputDec.addEventListener("input", () => {
-  const decValue = +inputDec.value;
-  inputBin.value = Decimal(decValue, 2);
-  inputOct.value = Decimal(decValue, 8);
-  inputHex.value = Decimal(decValue, 16);
+  	CountingValues.CountingDecValues(inputDec.value);
 });
 inputBin.addEventListener("input", () => {
-  const binValue = inputBin.value;
-  inputDec.value = Binary(binValue, 10);
-  inputOct.value = Binary(binValue, 8);
-  inputHex.value = Binary(binValue, 16);
+	CountingValues.CountingBinValues(inputBin.value);
 });
 inputOct.addEventListener("input", () => {
-  const octValue = inputOct.value;
-  inputDec.value = Octal(octValue, 10);
-  inputBin.value = Octal(octValue, 2);
-  inputHex.value = Octal(octValue, 16);
+	CountingValues.CountingOctValues(inputOct.value);
 });
 inputHex.addEventListener("input", () => {
-  const hexValue = inputHex.value;
-  inputDec.value = Hex(hexValue, 10);
-  inputBin.value = Hex(hexValue, 2);
-  inputOct.value = Hex(hexValue, 8);
+  	CountingValues.CountingHexValues(inputHex.value);
 });
 
 inputs.forEach(input => {
@@ -54,10 +42,64 @@ inputs.forEach(input => {
 
 inputTerms.forEach(input => {
 	input.addEventListener('input', () => {
-		answerSumm.textContent = `Result: ${Addition(inputTerms[0].value, inputTerms[1].value, selectedNotation.value)}`;
-	});	
-})
+		CalculatingProcess();
+	});
+});
 
 selectedNotation.addEventListener('change', () => {
-	answerSumm.textContent = `Result: ${Addition(inputTerms[0].value, inputTerms[1].value, selectedNotation.value)}`;
-})
+	CalculatingProcess();
+});
+
+const CalculatingProcess = () => {
+	const value = Addition(inputTerms[0].value, inputTerms[1].value, selectedNotation.value);
+	answerSumm.textContent = `Result: ${value}`;
+	AdditionValueConversion(value, selectedNotation.value);
+};
+
+const AdditionValueConversion = (value, notation) => {
+	switch (notation) {
+		case 'Dec':
+			CountingValues.CountingDecValues(value);
+			break;
+		case 'Bin':
+			CountingValues.CountingBinValues(value);
+			break;
+		case 'Oct':
+			CountingValues.CountingOctValues(value);
+			break;
+		case 'Hex':
+			CountingValues.CountingHexValues(value);
+			break;
+	};
+};
+
+const CountingValues = {
+
+	CountingDecValues (value) {
+		inputDec.value = +value;
+		inputBin.value = Decimal(+value, 2);
+		inputOct.value = Decimal(+value, 8);
+		inputHex.value = Decimal(+value, 16);
+	},
+
+	CountingBinValues (value) {
+		inputDec.value = Binary(value, 10);
+		inputBin.value = value;
+		inputOct.value = Binary(value, 8);
+		inputHex.value = Binary(value, 16);
+	},
+
+	CountingOctValues (value) {
+		inputDec.value = Octal(value, 10);
+		inputBin.value = Octal(value, 2);
+		inputOct.value = value;
+		inputHex.value = Octal(value, 16);
+	},
+
+	CountingHexValues (value) {
+		inputBin.value = Hex(value, 2);
+		inputDec.value = Hex(value, 10);
+		inputOct.value = Hex(value, 8);	
+		inputHex.value = value;
+	}
+};
